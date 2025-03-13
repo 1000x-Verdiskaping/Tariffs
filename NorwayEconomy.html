@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Major Tariff Trends: US vs. Norway (2025)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #444;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .confirmed { color: green; font-weight: bold; }
+        .potential { color: orange; font-weight: bold; }
+        canvas {
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Major Tariff Trends: Norway vs. U.S. (2025)</h2>
+
+    <h3>Confirmed Tariffs (Solid) vs. Potential Tariffs (Transparent)</h3>
+    <div style="display: flex; justify-content: space-around;">
+        <canvas id="confirmedTariffChart" width="400"></canvas>
+        <canvas id="potentialTariffChart" width="400"></canvas>
+    </div>
+
+    <h2>Tariff Data with References</h2>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Share of Norway’s Exports to U.S. (%)</th>
+            <th>New U.S. Tariff (%)</th>
+            <th>Status</th>
+            <th>Reference</th>
+        </tr>
+        <tr>
+            <td>Aluminum</td>
+            <td>15%</td>
+            <td><strong>25%</strong></td>
+            <td><span class="confirmed">✔ Confirmed</span></td>
+            <td><a href="https://www.reuters.com/business/us-tariff-changes-2025/" target="_blank">Reuters</a></td>
+        </tr>
+        <tr>
+            <td>Steel</td>
+            <td>10%</td>
+            <td><strong>25%</strong></td>
+            <td><span class="confirmed">✔ Confirmed</span></td>
+            <td><a href="https://www.thetimes.co.uk/article/trump-steel-aluminum-tariffs-2025" target="_blank">The Times</a></td>
+        </tr>
+        <tr>
+            <td>Seafood</td>
+            <td>40%</td>
+            <td><strong>25%</strong></td>
+            <td><span class="potential">⚠ Potential</span></td>
+            <td><a href="https://aircargoweek.com/us-tariffs-would-be-fishy-for-norwegian-airfreight/" target="_blank">Air Cargo Week</a></td>
+        </tr>
+        <tr>
+            <td>Technology</td>
+            <td>20%</td>
+            <td><strong>0%</strong></td>
+            <td><span class="confirmed">✔ No Change</span></td>
+            <td><a href="https://www.wto.org/english/res_e/reser_e/trade_reports_e.htm" target="_blank">WTO</a></td>
+        </tr>
+    </table>
+
+    <script>
+        const categories = ["Aluminum", "Steel", "Seafood", "Technology"];
+        const exportShares = [15, 10, 40, 20]; // Share of exports to U.S.
+
+        const confirmedTariffs = [25, 25, 0, 0]; // Solid colors for confirmed tariffs
+        const potentialTariffs = [0, 0, 25, 0]; // Transparent for potential tariffs
+
+        const backgroundColors = [
+            "rgba(54, 162, 235, 0.8)", // Blue - Confirmed
+            "rgba(255, 99, 132, 0.8)", // Red - Confirmed
+            "rgba(255, 159, 64, 0.4)", // Orange (Transparent) - Potential
+            "rgba(75, 192, 192, 0.8)"  // Teal - No Change
+        ];
+
+        window.onload = function() {
+            new Chart(document.getElementById("confirmedTariffChart"), {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        label: "Confirmed U.S. Tariffs (%)",
+                        backgroundColor: backgroundColors,
+                        data: confirmedTariffs
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: {
+                        legend: { display: true }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById("potentialTariffChart"), {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        label: "Potential U.S. Tariffs (%)",
+                        backgroundColor: backgroundColors,
+                        data: potentialTariffs
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: {
+                        legend: { display: true }
+                    }
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
